@@ -191,6 +191,26 @@ body.opened .paper-inner > *{transition-delay:calc(var(--i,0) * 140ms + 500ms)}
 @media (prefers-reduced-motion:reduce){
   .paper,.rolled,.paper-inner > *{transition:none!important}
 }
+
+/* music toggle */
+.music-btn{
+  position:fixed;z-index:40;
+  left:calc(16px + env(safe-area-inset-left,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));
+  width:46px;height:46px;border-radius:50%;border:0;cursor:pointer;
+  background:#4a1622;color:#e6cd8f;box-shadow:0 0 0 1px rgba(230,205,143,.6),0 6px 16px rgba(0,0,0,.35);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;transform:scale(.8);transition:opacity .5s,transform .5s;pointer-events:none;
+}
+.music-btn.show{opacity:1;transform:none;pointer-events:auto}
+.music-btn:focus-visible{outline:2px solid rgba(230,205,143,.6);outline-offset:3px}
+.music-btn svg{width:22px;height:22px}
+.music-btn .off{display:none}
+.music-btn.muted .on{display:none}
+.music-btn.muted .off{display:block}
+@media (prefers-reduced-motion:no-preference){
+  .music-btn.show:not(.muted){animation:beat 1.8s ease-in-out infinite}
+  @keyframes beat{50%{box-shadow:0 0 0 6px rgba(196,160,90,.18),0 6px 16px rgba(0,0,0,.35)}}
+}
 </style>
 </head>
 <body>
@@ -362,6 +382,22 @@ body.opened .paper-inner > *{transition-delay:calc(var(--i,0) * 140ms + 500ms)}
     setTimeout(tick, 1000);
   }
   tick();
+})();
+</script>
+
+<audio id="song" src="../music.mp3" loop preload="auto" playsinline></audio>
+<button class="music-btn" id="musicBtn" type="button" aria-label="إيقاف الموسيقى">
+  <svg class="on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>
+  <svg class="off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="m22 9-6 6"/><path d="m16 9 6 6"/></svg>
+</button>
+<script>
+(function(){
+  var song=document.getElementById("song"), mb=document.getElementById("musicBtn"), trig=document.getElementById("ribbon");
+  function setMuted(m){ mb.classList.toggle("muted",m); mb.setAttribute("aria-label", m ? "تشغيل الموسيقى" : "إيقاف الموسيقى"); }
+  function play(){ song.volume=0.8; var p=song.play(); if(p&&p.catch) p.catch(function(){ setMuted(true); }); setMuted(false); }
+  trig.addEventListener("click", function(){ play(); mb.classList.add("show"); }, {once:true});
+  mb.addEventListener("click", function(){ if(song.paused) play(); else { song.pause(); setMuted(true); } });
+  document.addEventListener("visibilitychange", function(){ if(document.hidden && !song.paused){ song.pause(); song._resume=true; } else if(!document.hidden && song._resume){ song._resume=false; play(); } });
 })();
 </script>
 </body>
