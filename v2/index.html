@@ -6,6 +6,13 @@
 <title>ضاري و حلا</title>
 <meta property="og:title" content="ضاري و حلا">
 <meta property="og:description" content="الجمعة ٢٠ تشرين الثاني ٢٠٢٦ · فندق ألف ليلة، عمّان">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://dlouzi00.github.io/hala-and-dari/v2/">
+<meta property="og:image" content="https://dlouzi00.github.io/hala-and-dari/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" as="image" href="../couple.jpg">
 <meta name="theme-color" content="#4a1622">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -130,6 +137,21 @@ body.opened .ribbon-btn svg{animation:untie 1s cubic-bezier(.5,0,.7,1) forwards}
 .verse{font-family:var(--f-quran);font-size:1.3rem;color:var(--rose);margin:4px 0 0}
 .verse .o{color:var(--gold)}
 
+/* couple portrait in an arch */
+.photo{position:relative;width:min(78%,290px);margin:24px auto 22px;aspect-ratio:3/4.3;max-width:100%}
+.photo::before{ /* offset gold arch behind */
+  content:"";position:absolute;inset:-9px;border-radius:999px 999px 10px 10px;
+  border:1px solid rgba(196,160,90,.55);
+}
+.photo .frame{
+  position:absolute;inset:0;border-radius:999px 999px 6px 6px;overflow:hidden;
+  box-shadow:0 0 0 3px var(--ivory),0 0 0 4px var(--gold),0 18px 30px -16px rgba(74,22,34,.55);
+  background:var(--ivory-edge);
+}
+.photo img{width:100%;height:100%;object-fit:cover;object-position:50% 38%;display:block;transform:scale(1.12);transition:transform 6s ease-out}
+body.opened .photo img{transform:scale(1.02)}
+.photo .star{position:absolute;left:50%;top:-22px;transform:translateX(-50%);width:22px;height:22px;background:var(--ivory);padding:2px}
+@media (prefers-reduced-motion:reduce){.photo img{transform:none;transition:none}}
 .orn{display:flex;align-items:center;justify-content:center;gap:12px;margin:26px auto;max-width:240px}
 .orn span{flex:1;height:1px;background:linear-gradient(to left,transparent,var(--gold),transparent)}
 .orn svg{width:26px;height:26px;flex:none}
@@ -230,6 +252,10 @@ body.opened .paper-inner > *{transition-delay:calc(var(--i,0) * 140ms + 500ms)}
       <p class="bism" style="--i:0">بسم الله الرحمن الرحيم</p>
       <p class="hosts" style="--i:1">أبناء المرحوم <b>عبدالحليم اللوزي</b>، والسيد <b>عبدالله النقرش</b><br>يتشرفون بدعوتكم لحضور حفل زفاف ولديهما</p>
       <h1 class="names" style="--i:2"><span>ضاري</span><span class="w">و</span><span>حلا</span></h1>
+      <figure class="photo" style="--i:3;margin-inline:auto">
+        <div class="frame"><img src="../couple.jpg" alt="ضاري وحلا" width="800" height="1422" decoding="async"></div>
+        <svg class="star" viewBox="0 0 26 26" aria-hidden="true"><path d="M13 2 L16 10 L24 13 L16 16 L13 24 L10 16 L2 13 L10 10 Z" fill="#c4a05a"/></svg>
+      </figure>
       <p class="verse" style="--i:3"><span class="o">﴿</span> وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً <span class="o">﴾</span></p>
 
       <div class="orn" style="--i:4" aria-hidden="true"><span></span><svg viewBox="0 0 26 26"><path d="M13 2 L16 10 L24 13 L16 16 L13 24 L10 16 L2 13 L10 10 Z" fill="none" stroke="#c4a05a" stroke-width="1.2"/><circle cx="13" cy="13" r="2.2" fill="#c4a05a"/></svg><span></span></div>
